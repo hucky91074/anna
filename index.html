@@ -207,16 +207,16 @@ const finaleEl = document.getElementById('finale');
 const nextBtn = document.getElementById('next');
 const homeBtn = document.getElementById('homeBtn');
 let digits = [null, null, null];
-let unlocked = false;   // QR-Code wurde gescannt: alle Spiele sind freigeschaltet
+let unlocked = false;   // Nur in dieser Sitzung: Adresse enthielt den richtigen Code (wird bewusst NICHT gespeichert)
 let idx = 0;
 let scanned = false;    // QR-Code wurde gerade eben gescannt (zeigt die Freischalt-Seite)
 let notice = '';
 
-function save() { try { localStorage.setItem(KEY, JSON.stringify({ digits, unlocked })); } catch (e) {} }
+function save() { try { localStorage.setItem(KEY, JSON.stringify({ digits })); } catch (e) {} }
 function load() {
   try {
     const d = JSON.parse(localStorage.getItem(KEY));
-    if (d && Array.isArray(d.digits) && d.digits.length === 3) { digits = d.digits; unlocked = !!d.unlocked; }
+    if (d && Array.isArray(d.digits) && d.digits.length === 3) { digits = d.digits; }
   } catch (e) {}
 }
 const target = () => digits.findIndex(d => d === null);
